@@ -116,6 +116,7 @@ Serial.write(HEADER_COORD);
 Serial.write(coordX);
 Serial.write(coordY);
 
+este fue arguegado al arduino 1 "esclavo" 
 ahora lo que hice fue estabilizar las lectruaas Adc de los petenciometros 
 el codigo que hice 
 uint8_t leerYEscalarPotenciometro(uint8_t pin) {
@@ -138,3 +139,28 @@ uint8_t leerYEscalarPotenciometro(uint8_t pin) {
   long escalado = (promedioRaw * 100L) / 1024L;
   return (uint8_t)constrain(escalado, 0, 100);
 }
+
+ahora implemente las fms de juego porque no tenia limite estricto de ganar o perder entonces no se sabia cuando seguia o continueva lo que hice fue que agregue este codigo en el arduino 2  "maestro "
+uint8_t leerYEscalarPotenciometro(uint8_t pin) {
+  analogRead(pin); // Lectura descartada para limpiar el multiplexor ADC
+  int lecturaRaw = analogRead(pin);
+  
+  if (pin == PIN_POT_X) {
+    muestrasX[indiceFiltro] = lecturaRaw;
+  } else {
+    muestrasY[indiceFiltro] = lecturaRaw;
+    indiceFiltro = (indiceFiltro + 1) % TAMANO_FILTRO;
+  }
+  
+  long suma = 0;
+  for (uint8_t i = 0; i < TAMANO_FILTRO; i++) {
+    suma += (pin == PIN_POT_X) ? muestrasX[i] : muestrasY[i];
+  }
+  
+  int promedioRaw = suma / TAMANO_FILTRO;
+  long escalado = (promedioRaw * 100L) / 1024L;
+  return (uint8_t)constrain(escalado, 0, 100);
+}
+
+
+
