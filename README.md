@@ -116,5 +116,6 @@ Serial.write(HEADER_COORD);
 Serial.write(coordX);
 Serial.write(coordY);
 
-
+ahora lo que hice fue estabilizar las lectruaas Adc de los petenciometros 
+el codigo que hice 
 
