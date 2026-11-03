@@ -206,8 +206,36 @@ uint8_t leerEjeY() {
   return (uint8_t)constrain(((suma / TAMANO_FILTRO) * 100L) / 1024L, 0, 100);
 }
 
+
+
 tuve que recablear en la protoboard los pines 6y 5  de los leds 1 y 2 mire 
 <img width="527" height="428" alt="image" src="https://github.com/user-attachments/assets/fbf0214b-2b38-4a44-a047-649c6aa841f4" />
+
+y con esto mostrare mi diagrama final ya que hice una mejora en el recableado y todo lo que iva haciendo y lo que iva trabajando me sirvio bastante para todo entonces entre tanta prueba ensayo y error pude concluir el trabajo 
+
+<img width="1360" height="542" alt="Incredible Uusam-Blorr" src="https://github.com/user-attachments/assets/e3d71b7a-4e59-48fc-b29c-73dd90cba229" />
+y el codigo aguegado al arduino 1 "esclavo":
+
+// Remapeo de pines ajustado al montaje real probado
+const uint8_t PIN_LED_X = 6; // LED Eje X (~PWM)
+const uint8_t PIN_LED_Y = 5; // LED Eje Y (~PWM)
+
+void setup() {
+  pinMode(PIN_BTN_INICIO, INPUT_PULLUP);
+  pinMode(PIN_LED_X, OUTPUT);
+  pinMode(PIN_LED_Y, OUTPUT);
+  
+  // Test de encendido físico al energizar (ambos encienden por 1 segundo)
+  digitalWrite(PIN_LED_X, HIGH);
+  digitalWrite(PIN_LED_Y, HIGH);
+  delay(1000);
+  digitalWrite(PIN_LED_X, LOW);
+  digitalWrite(PIN_LED_Y, LOW);
+  
+  Serial.begin(9600);
+}
+
+
 
 
 
