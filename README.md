@@ -184,3 +184,24 @@ if (nivelX == 3 && nivelY == 3) {
   tiempoInicioPermanenciaMs = 0; // Se reinicia si te sales del área
 }
 
+ahor alo que hice fue que el potenciometro no actualizava el nivel de proximidad de cada eje entonces lo que hice fue lo siguiente en el pedazo de codigo que le agregue al arduino 1 "esclavo"
+
+uint8_t leerEjeX() {
+  analogRead(PIN_POT_X);
+  int lecturaRaw = analogRead(PIN_POT_X);
+  muestrasX[indiceFiltroX] = lecturaRaw;
+  indiceFiltroX = (indiceFiltroX + 1) % TAMANO_FILTRO;
+  long suma = 0;
+  for (uint8_t i = 0; i < TAMANO_FILTRO; i++) suma += muestrasX[i];
+  return (uint8_t)constrain(((suma / TAMANO_FILTRO) * 100L) / 1024L, 0, 100);
+}
+
+uint8_t leerEjeY() {
+  analogRead(PIN_POT_Y);
+  int lecturaRaw = analogRead(PIN_POT_Y);
+  muestrasY[indiceFiltroY] = lecturaRaw;
+  indiceFiltroY = (indiceFiltroY + 1) % TAMANO_FILTRO;
+  long suma = 0;
+  for (uint8_t i = 0; i < TAMANO_FILTRO; i++) suma += muestrasY[i];
+  return (uint8_t)constrain(((suma / TAMANO_FILTRO) * 100L) / 1024L, 0, 100);
+}
