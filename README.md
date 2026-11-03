@@ -162,5 +162,25 @@ uint8_t leerYEscalarPotenciometro(uint8_t pin) {
   return (uint8_t)constrain(escalado, 0, 100);
 }
 
+ahra lo que hice fue el calculo de la zona 2x2 con los dx y dy y el temporizador de pertenencia para saber si se ganaba con el roze de cordenadas y mas mi codigo agregado en el arduino 2"maestro fue este"
 
+void calcularProximidadEjes() {
+  int dx = (jugadorX < (tesoroX - 1)) ? (tesoroX - 1) - jugadorX : (jugadorX > tesoroX ? jugadorX - tesoroX : 0);
+  int dy = (jugadorY < (tesoroY - 1)) ? (tesoroY - 1) - jugadorY : (jugadorY > tesoroY ? jugadorY - tesoroY : 0);
+  
+  nivelX = (dx > 10) ? 0 : ((dx >= 5) ? 1 : ((dx >= 1) ? 2 : 3));
+  nivelY = (dy > 10) ? 0 : ((dy >= 5) ? 1 : ((dy >= 1) ? 2 : 3));
+}
+
+// Evaluación estricta de permanencia:
+if (nivelX == 3 && nivelY == 3) {
+  if (tiempoInicioPermanenciaMs == 0) {
+    tiempoInicioPermanenciaMs = tiempoActualMs;
+  } else if (tiempoActualMs - tiempoInicioPermanenciaMs >= TIEMPO_PERMANENCIA_MS) {
+    estadoActual = VICTORIA;
+    tiempoInicioPartidaMs = tiempoActualMs;
+  }
+} else {
+  tiempoInicioPermanenciaMs = 0; // Se reinicia si te sales del área
+}
 
