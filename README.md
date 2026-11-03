@@ -107,4 +107,14 @@ void loop() {
     }
   }
 }
+restructure el codigo entonces lo que hice fue lo siguiente modificar y adaptar este codigo 
+const uint8_t HEADER_COORD = 0xA0;
+const uint8_t HEADER_START = 0xA1;
+
+// En loop: envío directo sin delay
+Serial.write(HEADER_COORD);
+Serial.write(coordX);
+Serial.write(coordY);
+
+
 
