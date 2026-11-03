@@ -205,3 +205,9 @@ uint8_t leerEjeY() {
   for (uint8_t i = 0; i < TAMANO_FILTRO; i++) suma += muestrasY[i];
   return (uint8_t)constrain(((suma / TAMANO_FILTRO) * 100L) / 1024L, 0, 100);
 }
+
+tuve que recablear en la protoboard los pines 6y 5  de los leds 1 y 2 mire 
+<img width="527" height="428" alt="image" src="https://github.com/user-attachments/assets/fbf0214b-2b38-4a44-a047-649c6aa841f4" />
+
+
+
